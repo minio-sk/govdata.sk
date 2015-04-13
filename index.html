@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="utf-8">
+    <title>Zoznamy firiem, živnostníkov, dlžníkov a komplexných informácií o subjektoch na Slovensku &middot; govdata.sk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Všetky informácie o firmách a subjektoch na Slovensku. Databázy a zoznamy firiem, živnostníkov, dlžníkov a neplatičov. Verejné obstarávania, zmluvy a množstvo doplňujúcich informácií. V štruktúrovanej podobe, denne aktualizované, prečistené a s rozumným API.">
+    <meta name="author" content="minio, s.r.o.">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Dosis&subset=latin-ext' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <style type="text/css">
+        body {
+            padding-bottom: 30em;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Dosis', sans-serif;
+            text-align: center;
+        }
+
+        h2 {
+            padding: 1em 0 0.5em 0;
+        }
+
+        a {
+            color: #3777CC;
+            text-decoration: underline;
+        }
+
+        a.btn {
+            text-decoration: none;
+        }
+
+        .jumbotron {
+            margin: 3em 0;
+            text-align: center;
+        }
+
+        .jumbotron h1 {
+            font-size: 100px;
+            line-height: 1.5;
+        }
+
+        .jumbotron h1 em {
+            color: #3777CC;
+        }
+
+        .jumbotron .lead {
+            font-size: 24px;
+            line-height: 1.5;
+            margin: 2em;
+        }
+
+        .jumbotron .btn {
+            font-size: 25px;
+            font-weight: bold;
+            padding: 25px 40px;
+            margin: 1em 0;
+            box-shadow: 5px 5px 25px #888;
+        }
+
+        .thumbnail .caption {
+            text-align: center;
+            margin: 1em 0;
+        }
+
+        .thumbnail .caption p {
+            margin: 0;
+        }
+
+        .thumbnail .holder {
+            width: auto;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .superfaktura {
+            background-color: rgb(178, 215, 233);
+        }
+
+        .otvorenezmluvy {
+            background-color: #333333;
+        }
+
+        .foaf {
+            background-color: #2074AF;
+        }
+
+        .form-horizontal {
+            padding: 1em;
+        }
+
+        .form-horizontal label {
+            line-height: 30px;
+            font-size: 20px;
+        }
+
+        .form-horizontal input {
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+        }
+
+        .form-horizontal textarea {
+            line-height: 30px;
+            font-size: 20px;
+        }
+
+        .form-horizontal .jumbotron {
+            margin-top: 0;
+        }
+
+        .form-horizontal .help-inline {
+            line-height: 30px;
+        }
+
+        .footer, #contact-form-submitted {
+            text-align: center;
+        }
+
+        em {
+            background-color: #fafaa0;
+            font-style: normal;
+            padding: 0 2px;
+        }
+
+        .footer, .footer a {
+            color: gray;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $('*[data-scrollto]').click(function (event) {
+                event.preventDefault();
+                var selector = $(this).attr('href');
+                $('html, body').animate({
+                    scrollTop: $(selector).offset().top
+                }, 1000);
+            });
+
+            $('[data-track]').click(function (event) {
+                var label = $(this).text();
+                _gaq.push(['_trackEvent', 'Actions', 'Click', label]);
+            });
+
+            $('#cta').click(function (event) {
+                setTimeout("$('#contact-email').focus()", 1200);
+            });
+
+            $('#contact-form').submit(function () {
+                if ($('#contact-email').val() == '') {
+                    $('#contact-email').parents('.control-group').addClass('error');
+                    $('#contact-email-error').show();
+                    return false;
+                } else {
+                    $('#contact-form-submitted').show();
+                    _gaq.push(['_trackEvent', 'Actions', 'Message sent']);
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+        _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+        _gaq.push(['_setAccount', 'UA-25318707-3']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="jumbotron" id="upper">
+        <h1>&lt; govdata.sk &gt;</h1>
+
+        <p class="lead">Všetky dôležité informácie o&nbsp;subjektoch na
+            Slovensku. Vyše
+            <em><strong>1.200.000</strong> firiem, živnostníkov, organizácií a nadácií</em>.
+            Cez <em><strong>100.000</strong> dlhov a nedoplatkov</em>, <em><strong>350.000</strong> obstarávaní a zmlúv</em>,
+            ako aj&nbsp;množstvo ďalších doplňujúcich informácií.</em>
+        </p>
+
+        <p class="lead">Poskytujeme <a href="#kontakt" data-scrollto data-track>zoznamy firiem a subjektov</a> podľa zvolených kritérií<br> ako aj <a href="#api" data-scrollto data-track>pravidelný odber dát</a>.</p>
+
+        <a id="cta" class="btn btn-large btn-primary" href="#kontakt" data-scrollto data-track>Mám záujem o prístup k dátam</a>
+
+        <p class="lead">
+            <a href="#informacie" data-scrollto data-track>Rozsiahle</a>, <a href="#aktualizacia" data-scrollto data-track>denne aktualizované</a>, <a href="#struktura" data-scrollto data-track>štruktúrované,
+            prečistené a poprepájané</a> dáta <a href="#api" data-scrollto data-track>s&nbsp;rozumným API</a> od programátorov, ktorí s nimi
+            pracujú už
+            roky.
+        </p>
+
+    </div>
+
+    <h2>Referencie</h2>
+
+    <div class="row-fluid">
+        <ul class="thumbnails">
+            <li class="span4">
+                <div class="thumbnail">
+                    <div class="holder superfaktura">
+                        <img src="img/superfaktura.png" alt="superfaktura.sk">
+                    </div>
+                    <div class="caption">
+                        <p>Poskytovateľ automatického vyplnenia údajov o firmách (názov, sídlo, IČ-DPH, číslo vložky&hellip;)
+                            pre ekonomický systém.</p>
+
+                        <p><a href="http://www.superfaktura.sk/">www.superfaktura.sk</a></p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="span4">
+                <div class="thumbnail">
+                    <div class="holder foaf">
+                        <img src="img/foaf.png" alt="foaf.sk">
+                    </div>
+                    <div class="caption">
+                        <p>Poskytovateľ komplexných informácií o&nbsp;subjektoch pre sociálnu sieť firiem Slovenskej
+                            republiky.</p>
+
+                        <p><a href="http://foaf.sk/">www.foaf.sk</a></p>
+                    </div>
+                </div>
+
+            </li>
+
+            <li class="span4">
+                <div class="thumbnail">
+                    <div class="holder otvorenezmluvy">
+                        <img src="img/otvorenezmluvy.png" alt="otvorenezmluvy.sk">
+                    </div>
+                    <div class="caption">
+                        <p>Zdroj dát pre kategorizáciu a dodatočné informácie o&nbsp;subjektoch pre crowdsourcingovú
+                            platformu.</p>
+
+                        <p><a href="http://otvorenezmluvy.sk">www.otvorenezmluvy.sk</a></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="thumbnails">
+            <li class="span4">
+                <div class="thumbnail">
+                    <div class="holder tis">
+                        <img src="img/tis.png" alt="Transparency International Slovensko">
+                    </div>
+                    <div class="caption">
+                        <p>Špecializovaný export dát o firmách s&nbsp;podielom v cudzine.</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="span4">
+                <div class="thumbnail">
+                    <div class="holder ">
+                        <p>Sekretariát podpredsedníčky NR SR</p>
+                    </div>
+                    <div class="caption">
+                        <p>Export dát veľkých dlžníkov v Sociálnej poisťovni.</p>
+                    </div>
+                </div>
+
+            </li>
+
+            <li class="span4">
+                <div class="thumbnail">
+                    <div class="holder tis">
+                        <img src="img/bsr.png" alt="Black Swan Rational" width="200">
+                    </div>
+                    <div class="caption">
+                        <p>Export dát o firmách potrebný pre hlbšie analýzy.</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <h2 id="informacie">Aké informácie poskytujeme?</h2>
+
+    <p class="lead">Od <em>informácií o právnych subjektoch</em> (sídlo, IČO, DIČ, IČ-DPH, štatutári, vklady, imanie,
+        podiely, predmety činností, kategorizácie odvetvia&hellip;) z obchodného a živnostenského registra, cez <em>dlhy na daniach a nedoplatky v&nbsp;poisťovniach</em> až po <em>verejné
+            obstarávania a&nbsp;zmluvy</em>.<em>Vzťahy k .sk doménam</em>, <em>množstvo historických dát</em> a <strong>ďalších informácií z&nbsp;roztrúsených
+            zdrojov po webe.</strong></p>
+
+    <h2 id="aktualizacia">Aktualizácia údajov</h2>
+
+    <p class="lead">Údaje v našej databáze sú vždy <em>aktualizované s frekvenciou pôvodného zdroja. Vo väčšine prípadov
+        denne.</em></p>
+
+    <h2 id="struktura">Štruktúrované, prečistené a poprepájané dáta</h2>
+
+    <p class="lead">Všetky <em>záznamy sú štruktúrované</em> a ak je to možné, <em>s odkazom na dostupný pôvodný
+        zdroj</em>. Záznamy sa snažíme čo najlepšie prečistiť a doplniť údajmi z iných zdrojov.</p>
+
+
+    <h2 id="api">Rozumné API</h2>
+
+    <p class="lead">Už roky pracujeme s dátami komerčných aj verejných subjektov a presne vieme, kde majú ich API
+        slabiny. <strong>www.govdata.sk
+            sprístupňuje dáta tak, aby sa Vám používali čo najlepšie.</strong>
+
+    <p class="lead">Poskytujeme API pre <em>notifikácie o
+        zmene záznamov</em>, <em>fulltextové vyhľadávanie</em>, <em>masový odber</em> ako aj <em>odber údajov
+        zmenených od daného dátumu</em>. Cez <em>REST</em> vo formáte <em>JSON</em> a <em>XML</em>. <strong>Od
+        programátorov, pre programátorov.</strong>
+    </p>
+
+
+    <h2 id="kontakt">Kontakt</h2>
+    <p class="lead"><em>V prípade záujmu o prístup k dátam alebo ďalšie informácie nás prosím kontaktujte</em>. <strong>Ďakujeme.</strong></p>
+
+    <iframe name="hidden_iframe" style="display: none"></iframe>
+
+    <div id="contact-form-submitted" class="well well-large alert-success lead" style="display: none;">
+        Ďakujeme za správu, budeme Vás kontaktovať.
+    </div>
+
+    <form id="contact-form" class="form-horizontal" onsubmit="" method="POST" target="hidden_iframe"
+          action="https://docs.google.com/forms/d/1klEE91iJNRyAvusKsYWu84UIJ2M4tuatXh2-Lr25jCA/formResponse">
+        <div class="control-group">
+            <label class="control-label" for="contact-email">Váš email</label>
+
+            <div class="controls">
+                <input id="contact-email" type="text" aria-required="true" dir="auto"
+                       class="input-xxlarge" value="" name="entry.1941619055"
+                       placeholder="Aby sme Vás vedeli kontaktovať">
+                <span class="help-inline" id="contact-email-error" style="display:none;">Zadajte prosím Váš email, inak Vás nebudeme vedieť kontaktovať.</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="contact-message">Správa</label>
+
+            <div class="controls">
+                <textarea id="contact-message" dir="auto" class="input-xxlarge" cols="0" rows="8"
+                          name="entry.386180336" placeholder="O aké dáta máte záujem?"></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="jumbotron">
+                <button type="submit" data-track class="btn btn-primary" name="submit" id="lower">Odoslať správu</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="footer">
+    <p><a href="http://minio.sk">minio, s.r.o.</a> &copy; 2012&ndash;2013</p>
+</div>
+
+</body>
+</html>
